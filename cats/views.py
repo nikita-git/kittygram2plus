@@ -6,12 +6,14 @@ from .models import Achievement, Cat, User
 from .serializers import AchievementSerializer, CatSerializer, UserSerializer
 from .permissions import OwnerOrReadOnly, ReadOnly
 from .throttling import WorkingHoursRateThrottle
+from rest_framework.pagination import LimitOffsetPagination
 
 
 class CatViewSet(viewsets.ModelViewSet):
     queryset = Cat.objects.all()
     serializer_class = CatSerializer
     permission_classes = (OwnerOrReadOnly,)
+    pagination_class = LimitOffsetPagination
 
     # Если кастомный тротлинг-класс вернёт True - запросы будут обработаны
     # Если он вернёт False - все запросы будут отклонены
